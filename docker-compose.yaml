@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+
+  livetracker:
+    build: ./livetracker
+    environment:
+      TWITTER_TRACKING_QUERY: "@realDonaldTrump"
+      COUCHDB_URL: http://admin:password@couchdb:5984/
+    env_file:
+      - docker-compose.env
+    links:
+      - couchdb
+
+  couchdb:
+    image: couchdb:1.6
+    environment:
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: password
+    ports:
+      - 5984:5984
